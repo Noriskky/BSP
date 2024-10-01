@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Startpage</title>
+</head>
+<style>
+    body {
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        line-height: 0.6;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    .clock {
+        font-size: 4em;
+        font-family: Helvetica, sans-serif;
+        z-index: 2;
+    }
+
+    h1 {
+        font-size: 2em;
+        font-family: Helvetica, sans-serif;
+        z-index: 2;
+        color: white;
+    }
+
+    .glassmorphism {
+        backdrop-filter: blur(6px) saturate(180%);
+        -webkit-backdrop-filter: blur(6px) saturate(200%);
+        background-color: rgba(255, 255, 255, 0.11);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+
+    .main-page {
+        padding: 20px;
+        width: 50%;
+        margin: 10% auto 0;
+    }
+
+    .settings-button {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.021);
+        transition: all 0.3s;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+
+        backdrop-filter: blur(6px) saturate(180%);
+        -webkit-backdrop-filter: blur(6px) saturate(200%);
+        background-color: rgba(255, 255, 255, 0.11);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+
+    .settings-button svg {
+        height: 16px;
+        fill: rgb(77, 77, 77);
+        transition: all 0.3s;
+    }
+    .settings-button:hover {
+        background-color: rgba(255, 255, 255, 0.55);
+    }
+
+    .settings-close-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: absolute;
+        top: 0;
+        right: 0;
+        fill: white;
+        backdrop-filter: blur(6px) saturate(180%);
+        -webkit-backdrop-filter: blur(6px) saturate(200%);
+        background-color: rgba(255, 255, 255, 0.11);
+        border-bottom-left-radius: 12px;
+        border-top-right-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+
+    .background-setting::file-selector-button {
+        background-color: rgba(255, 255, 255, 0.11);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: white;
+    }
+
+    .background-setting::file-selector-button:hover {
+        background-color: rgba(255, 255, 255, 0.55);
+    }
+
+    .background-setting {
+        color: white;
+    }
+
+    h2 {
+        font-size: 0.9em;
+        font-family: Helvetica, sans-serif;
+        z-index: 2;
+        color: white;
+        text-align: left;
+    }
+
+    .bookmarks {
+        margin: 0 auto;
+        width: 80%;
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+    }
+
+    .name-setting {
+        color: white;
+        padding: 10px;
+        width: 90%;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        background-color: rgba(255, 255, 255, 0.11);
+        transition: all 0.3s;
+    }
+
+    .bookmark-main {
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        background-color: rgba(255, 255, 255, 0.11);
+        color: white;
+        text-decoration: none;
+        margin: 5px 0;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bookmark-main .title {
+        font-size: 4em;
+        color: white;
+        text-decoration: none;
+    }
+
+    .bookmark {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        margin: 5px 0;
+    }
+
+    .bookmark a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .bookmark-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .bookmark-form input {
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        background-color: rgba(255, 255, 255, 0.11);
+        color: white;
+    }
+
+    .bookmark-form button {
+        padding: 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        background-color: rgba(255, 255, 255, 0.11);
+        color: white;
+        cursor: pointer;
+    }
+
+    .delete-bookmark {
+        padding: 5px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        background-color: rgba(255, 255, 255, 0.11);
+        cursor: pointer;
+        color: red;
+        transition: 0.3s all ease-in-out;
+    }
+
+    .delete-bookmark:hover {
+        background-color: rgba(255, 0, 0, 0.55);
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .main-page {
+            width: 90%;
+        }
+    }
+</style>
+<script>
+    function getCookie(name) {
+        const cookies = document.cookie.split('; ');
+        const cookie = cookies.find(cookie => cookie.includes(name));
+        return cookie ? cookie.split('=')[1] : null;
+    }
+
+    const name = getCookie('name');
+
+    function init() {
+        const bgImage = localStorage.getItem('bgImage');
+        if (bgImage) {
+            document.body.style.backgroundImage = `url(${bgImage})`;
+        }
+
+        if (name) {
+            document.querySelector('.title').textContent = `Welcome back, ${name}!`;
+        } else {
+            const name = prompt('What is your name?');
+            document.cookie = `name=${name}; SameSite=Lax; Secure`;
+            document.querySelector('.title').textContent = `Welcome back, ${name}!`;
+        }
+
+        loadBookmarks();
+    }
+
+    function changeBackgroundImage(event) {
+        const file = event.target.files[0];
+        if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const bgImage = e.target.result;
+                localStorage.setItem('bgImage', bgImage);
+                document.body.style.backgroundImage = `url(${bgImage})`;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert('Please upload a valid JPG or PNG image.');
+        }
+    }
+
+    function openSettings() {
+        const settingsPage = document.querySelector('.settings-page');
+        settingsPage.showModal()
+    }
+
+    function closeSettings() {
+        const settingsPage = document.querySelector('.settings-page');
+        settingsPage.close()
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        document.querySelector('.clock').textContent = `${hours}:${minutes}`;
+    }
+
+    setInterval(updateClock, 1000);
+
+    function updateName(event) {
+        const name = event.target.value;
+        document.cookie = `name=${name}; SameSite=Lax; Secure`;
+        document.querySelector('.title').textContent = `Welcome back, ${name}!`;
+    }
+
+    function loadBookmarks() {
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        const bookmarksContainer = document.querySelector('.bookmarks');
+        const settingsBookmarksContainer = document.querySelector('.settings-bookmarks');
+        bookmarksContainer.innerHTML = '';
+        settingsBookmarksContainer.innerHTML = '';
+        bookmarks.forEach((bookmark, index) => {
+            const div = document.createElement('div');
+            const main_a = document.createElement('a');
+            div.className = 'bookmark';
+            main_a.className = 'bookmark-main glassmorphism';
+
+            const a = document.createElement('a');
+            a.href = bookmark.url;
+            a.textContent = bookmark.name;
+
+            const button = document.createElement('button');
+            button.className = 'delete-bookmark';
+            button.textContent = 'Delete';
+            button.onclick = () => deleteBookmark(index);
+
+            main_a.href = bookmark.url;
+
+            const main_image = document.createElement('span');
+            main_image.textContent = bookmark.name[0].toUpperCase();
+            main_image.className = "title"
+            main_a.appendChild(main_image);
+
+            div.appendChild(a);
+            div.appendChild(button);
+            bookmarksContainer.appendChild(main_a);
+            settingsBookmarksContainer.appendChild(div);
+        });
+    }
+
+    function addBookmark(event) {
+        event.preventDefault();
+        const name = document.querySelector('#bookmark-name').value;
+        const url = document.querySelector('#bookmark-url').value;
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        bookmarks.push({ name, url });
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        loadBookmarks();
+    }
+
+    function deleteBookmark(index) {
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+        bookmarks.splice(index, 1);
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        loadBookmarks();
+    }
+</script>
+<body onload="init()">
+<div class="main-page glassmorphism">
+    <h1 class="clock">00:00</h1>
+    <h1 class="title">Welcome back!</h1>
+    <div class="bookmarks"></div>
+</div>
+<button id="settings-button" onclick="openSettings()" class="settings-button">
+    <svg viewBox="0 0 512 512" height="1em">
+        <path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"></path>
+    </svg>
+</button>
+
+<dialog class="settings-page glassmorphism">
+    <h1>Settings</h1>
+    <button class="settings-close-button" onclick="closeSettings()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+    </button>
+    <h2>Background Image</h2>
+    <input class="background-setting glassmorphism" type="file" accept="image/jpeg, image/png" onchange="changeBackgroundImage(event)">
+
+    <h2>Your Name</h2>
+    <input class="glassmorphism name-setting" type="text" onchange="updateName(event)" placeholder="Type your name here...">
+
+    <h2>Add Bookmark</h2>
+    <form class="bookmark-form" onsubmit="addBookmark(event)">
+        <input id="bookmark-name" type="text" placeholder="Bookmark Name" required>
+        <input id="bookmark-url" type="url" placeholder="Bookmark URL" required>
+        <button type="submit">Add Bookmark</button>
+    </form>
+
+    <h2>Manage Bookmarks</h2>
+    <div class="settings-bookmarks"></div>
+</dialog>
+</body>
+</html>
